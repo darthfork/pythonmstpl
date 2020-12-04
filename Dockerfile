@@ -13,7 +13,7 @@ ADD src/ /app/flask_uwsgi_docker
 
 RUN pip3 install --upgrade pip && pip3 install -r requirements.txt
 
-RUN python3 setup.py install
+RUN pip3 install -e .
 
 RUN groupadd -r abhishek && useradd --no-log-init -r -g abhishek -u 1000 abhishek
 
