@@ -1,6 +1,6 @@
 .PHONY: build version
 
-include version
+include src/version.py
 
 IMAGE	:= flask-uwsgi-docker
 
