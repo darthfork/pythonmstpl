@@ -2,7 +2,7 @@
 
 include src/version.py
 
-IMAGE	:= flask-uwsgi-docker
+IMAGE	:= flask_uwsgi_docker
 
 all: build
 
