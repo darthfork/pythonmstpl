@@ -1,12 +1,11 @@
-FROM ubuntu:20.04
+FROM alpine:3.12
 
 WORKDIR /app
 
-ARG DEBIAN_FRONTEND=noninteractive
 ARG USERNAME=darthfork
 
-RUN apt-get update &&\
-    apt-get install -y python3 python3-pip libpcre3 libpcre3-dev
+RUN apk update &&\
+    apk add python3-dev py3-pip shadow pcre-dev build-base linux-headers
 
 ADD requirements.txt /app
 ADD setup.py /app
