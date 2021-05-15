@@ -13,7 +13,13 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Build image
+      - name: Hadolint
+        uses: hadolint/hadolint-action@v1.5.0
+        with:
+          dockerfile: Dockerfile
+
+      - name: Build Image
         run: make build
