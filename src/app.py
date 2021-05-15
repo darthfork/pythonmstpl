@@ -1,7 +1,9 @@
+import json
+
 from flask import Flask
 
 app = Flask(__name__)
 
-@app.route("/")
-def hello():
-    return "Oh, Hello World"
+@app.route("/healthcheck")
+def healthcheck():
+    return json.dumps({"status": "ok"})
