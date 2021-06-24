@@ -25,6 +25,6 @@ spec:
     spec:
       containers:
       - name: flask-uwsgi-docker
-        image: darthfork/flask-uwsgi-docker
+        image: darthfork/flask_uwsgi_docker
         ports:
         - containerPort: 5000
