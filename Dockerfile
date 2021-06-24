@@ -6,7 +6,7 @@ ARG USERNAME=darthfork
 
 RUN apk add --no-cache python3-dev=3.8.10-r0 py3-pip=20.1.1-r0 shadow=4.8.1-r0\
                        pcre-dev=8.44-r0 build-base=0.5-r2 linux-headers=5.4.5-r1\
-                       curl=7.76.1-r0
+                       curl=7.77.0-r0
 
 COPY requirements.txt /app
 COPY setup.py /app

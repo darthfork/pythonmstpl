@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-uwsgi-docker
+spec:
+  ports:
+  - port: 5000
+    targetPort: 5000
+  type: LoadBalancer
+  selector:
+    app: flask-uwsgi-docker
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-uwsgi-docker
+spec:
+  selector:
+    matchLabels:
+      app: flask-uwsgi-docker
+  template:
+    metadata:
+      labels:
+        app: flask-uwsgi-docker
+    spec:
+      containers:
+      - name: flask-uwsgi-docker
+        image: darthfork/flask-uwsgi-docker
+        ports:
+        - containerPort: 5000
