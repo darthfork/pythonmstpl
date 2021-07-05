@@ -1,13 +1,12 @@
 apiVersion: skaffold/v2beta17
 kind: Config
-metadata:
-  name: flask_uwsgi_docker
 build:
   artifacts:
-  - image: darthfork/flask_uwsgi_docker
-    docker:
-      dockerfile: Dockerfile
+  - image: flask-uwsgi-docker
 deploy:
-  kubectl:
-    manifests:
-    - k8s/deployment.yaml
+  helm:
+    releases:
+    - name: flask-uwsgi-docker
+      chartPath: charts
+      artifactOverrides:
+        image: flask-uwsgi-docker
