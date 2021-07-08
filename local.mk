@@ -2,7 +2,7 @@
 
 PYTHON 	:= /usr/bin/env python3
 SRC	:= src
-PACKAGE	:= flask_uwsgi_docker
+PACKAGE	:= pythonmstpl
 
 all: dev
 

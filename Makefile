@@ -2,7 +2,7 @@
 
 include src/version.py
 
-IMAGE	:= flask_uwsgi_docker
+IMAGE	:= pythonmstpl
 
 all: build
 

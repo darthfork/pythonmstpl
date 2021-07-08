@@ -11,7 +11,7 @@ RUN apk add --no-cache python3-dev=3.8.10-r0 py3-pip=20.1.1-r0 shadow=4.8.1-r0\
 COPY requirements.txt /app
 COPY setup.py /app
 COPY conf/uwsgi.ini /app
-COPY src/ /app/flask_uwsgi_docker
+COPY src/ /app/pythonmstpl
 
 RUN pip3 install --no-cache-dir --upgrade pip==21.1.1 && pip3 install --no-cache-dir -r requirements.txt
 

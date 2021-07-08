@@ -1,9 +1,9 @@
 from setuptools import setup
-from flask_uwsgi_docker.version import VERSION
+from pythonmstpl.version import VERSION
 
 setup(
-    name='flask_uwsgi_docker',
+    name='pythonmstpl',
     version=VERSION,
-    description='Flask UWSGI Docker Skeleton app',
-    packages=['flask_uwsgi_docker']
+    description='Python micro-service template app',
+    packages=['pythonmstpl']
 )

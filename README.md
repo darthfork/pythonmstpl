@@ -1,13 +1,13 @@
-# Flask UWSGI Docker
+# Python Micro Service Template
 
-Flask UWSGI Docker skeleton app for building APIs
+Python Micro Service skeleton app for building APIs
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/darthfork/flask-uwsgi-docker/Build?style=for-the-badge&logo=github)](https://github.com/darthfork/flask-uwsgi-docker/actions?query=workflow%3ABuild)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/darthfork/pythonmstpl/Build?style=for-the-badge&logo=github)](https://github.com/darthfork/pythonmstpl/actions?query=workflow%3ABuild)
 
 ### Template
 
 To change the name of the project run:
 
 ```bash
-grep -rl  'flask_uwsgi_docker' . | xargs sed -i 's/flask_uwsgi_docker/<new_name>/g'
+grep -rl  'pythonmstpl' . | xargs sed -i 's/pythonmstpl/<new_name>/g'
 ```

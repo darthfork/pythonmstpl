@@ -1,4 +1,4 @@
 apiVersion: v1
-description: flask-uwsgi-docker
-name: flask-uwsgi-docker
+description: pythonmstpl
+name: pythonmstpl
 version: 0.1.0
