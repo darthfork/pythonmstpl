@@ -1,23 +1,23 @@
-FROM alpine:3.12
+FROM alpine:3.14
 
 WORKDIR /app
 
 ARG USERNAME=darthfork
 
-RUN apk add --no-cache python3-dev=3.8.10-r0 py3-pip=20.1.1-r0 shadow=4.8.1-r0\
-                       pcre-dev=8.44-r0 build-base=0.5-r2 linux-headers=5.4.5-r1\
-                       curl=7.77.0-r0
+RUN apk add --no-cache python3-dev=3.9.5-r1 py3-pip=20.3.4-r1 shadow=4.8.1-r0\
+                       pcre-dev=8.44-r0 build-base=0.5-r2 linux-headers=5.10.41-r0\
+                       curl=7.77.0-r1
+
+RUN groupadd -r ${USERNAME} && useradd --no-log-init -r -g ${USERNAME} -u 1000 ${USERNAME}
 
 COPY requirements.txt /app
 COPY setup.py /app
 COPY conf/uwsgi.ini /app
 COPY src/ /app/pythonmstpl
 
-RUN pip3 install --no-cache-dir --upgrade pip==21.1.1 && pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir --upgrade pip==21.1.3 && pip3 install --no-cache-dir -r requirements.txt
 
 RUN pip3 install --no-cache-dir -e .
-
-RUN groupadd -r ${USERNAME} && useradd --no-log-init -r -g ${USERNAME} -u 1000 ${USERNAME}
 
 USER 1000
 
