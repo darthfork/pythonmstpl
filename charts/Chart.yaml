@@ -2,3 +2,7 @@ apiVersion: v1
 description: pythonmstpl
 name: pythonmstpl
 version: 0.1.0
+maintainers:
+  - name: darthfork
+    email: rai.abhishek90@gmail.com
+

@@ -6,7 +6,7 @@ ARG USERNAME=darthfork
 
 RUN apk add --no-cache python3-dev=3.9.5-r1 py3-pip=20.3.4-r1 shadow=4.8.1-r0\
                        pcre-dev=8.44-r0 build-base=0.5-r2 linux-headers=5.10.41-r0\
-                       curl=7.77.0-r1
+                       curl=7.78.0-r0
 
 RUN groupadd -r ${USERNAME} && useradd --no-log-init -r -g ${USERNAME} -u 1000 ${USERNAME}
 
