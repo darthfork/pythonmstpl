@@ -5,6 +5,7 @@ metadata:
   labels:
     app: {{ .Chart.Name }}
 spec:
+  replicas: {{ .Values.resources.replicaCount }}
   selector:
     matchLabels:
       app: {{ .Chart.Name }}
@@ -24,3 +25,13 @@ spec:
             port: 5000
           failureThreshold: 1
           periodSeconds: 30
+        resources:
+          requests:
+            memory: {{ .Values.resources.resourcesRequests.memory }}
+            cpu: {{ .Values.resources.resourcesRequests.cpu }}
+          limits:
+            memory: {{ .Values.resources.resourcesLimits.memory }}
+            cpu: {{ .Values.resources.resourcesLimits.cpu }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Chart.Name }}-config
