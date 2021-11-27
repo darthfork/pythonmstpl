@@ -1,10 +1,10 @@
-FROM alpine:3.14
+FROM alpine:3.15
 
 WORKDIR /app
 
-RUN apk add --no-cache python3-dev=3.9.5-r1 py3-pip=20.3.4-r1 shadow=4.8.1-r0\
-                       pcre-dev=8.44-r0 build-base=0.5-r2 linux-headers=5.10.41-r0\
-                       curl=7.79.1-r0
+RUN apk add --no-cache python3-dev=3.9.7-r4 py3-pip=20.3.4-r1 shadow=4.8.1-r1\
+                       pcre-dev=8.45-r1 build-base=0.5-r2 linux-headers=5.10.41-r0\
+                       curl=7.80.0-r0
 
 ARG USERNAME=darthfork
 
@@ -15,7 +15,7 @@ COPY setup.py /app
 COPY conf/uwsgi.ini /app
 COPY src/ /app/pythonmstpl
 
-RUN pip3 install --no-cache-dir --upgrade pip==21.1.3 &&\
+RUN pip3 install --no-cache-dir --upgrade pip==21.3.1 &&\
     pip3 install --no-cache-dir -r requirements.txt &&\
     pip3 install --no-cache-dir -e .
 
