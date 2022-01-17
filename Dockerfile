@@ -12,7 +12,7 @@ RUN groupadd -r ${USERNAME} && useradd --no-log-init -r -g ${USERNAME} -u 1000 $
 
 COPY requirements.txt /app
 COPY setup.py /app
-COPY conf/uwsgi.ini /app
+COPY conf/gunicorn.py /app
 COPY src/ /app/pythonmstpl
 
 RUN pip3 install --no-cache-dir --upgrade pip==21.3.1 &&\
@@ -23,6 +23,6 @@ USER 1000
 
 EXPOSE 5000
 
-CMD ["uwsgi", "--need-app", "--ini", "/app/uwsgi.ini"]
+CMD ["gunicorn", "pythonmstpl.app:app", "--conf", "/app/gunicorn.py"]
 
 HEALTHCHECK --interval=30s CMD curl --fail http://localhost:5000/healthcheck || exit 1
