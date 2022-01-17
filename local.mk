@@ -14,4 +14,4 @@ dev: symlink
 	source .venv/bin/activate && \
 	pip install -r requirements.txt && \
 	pip install -e . &&\
-	uwsgi --need-app --ini conf/uwsgi.ini
+	uvicorn pythonmstpl.app:app --port 5000 --reload

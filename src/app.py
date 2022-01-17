@@ -1,9 +1,9 @@
 import json
 
-from flask import Flask
+from fastapi import FastAPI
 
-app = Flask(__name__)
+app = FastAPI()
 
-@app.route("/healthcheck")
-def healthcheck():
-    return json.dumps({"status": "ok"})
+@app.get("/healthcheck")
+async def healthcheck():
+    return {"status": "ok"}

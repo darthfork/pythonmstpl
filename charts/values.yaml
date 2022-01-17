@@ -4,11 +4,11 @@
 resources:
   replicaCount: 1
   resourcesLimits:
-    memory: 128Mi
-    cpu: 0.5
+    memory: 1024Mi
+    cpu: 2
   resourcesRequests:
-    memory: 64Mi
-    cpu: 0.25
+    memory: 512Mi
+    cpu: 1
 
 configMap:
   data:
