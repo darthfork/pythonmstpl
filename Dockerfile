@@ -25,4 +25,4 @@ EXPOSE 5000
 
 CMD ["gunicorn", "pythonmstpl.app:app", "--conf", "/app/gunicorn.py"]
 
-HEALTHCHECK --interval=30s CMD curl --fail http://localhost:5000/healthcheck || exit 1
+HEALTHCHECK --interval=30s CMD curl --fail http://localhost:5000/v1/healthcheck || exit 1

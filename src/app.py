@@ -1,9 +1,12 @@
-import json
-
 from fastapi import FastAPI
+from fastapi_versioning import VersionedFastAPI, version
 
-app = FastAPI()
+from pythonmstpl import v1
 
-@app.get("/healthcheck")
-async def healthcheck():
-    return {"status": "ok"}
+app = FastAPI(title='pythonmstpl')
+
+app.include_router(v1.router)
+
+app = VersionedFastAPI(app,
+                       version_format='{major}',
+                       prefix_format='/v{major}')
