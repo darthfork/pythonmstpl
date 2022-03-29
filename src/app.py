@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from fastapi_versioning import VersionedFastAPI, version
+from fastapi_versioning import VersionedFastAPI
 
-from pythonmstpl import v1
+from pythonmstpl.v1 import api as v1
 
 app = FastAPI(title='pythonmstpl')
 
