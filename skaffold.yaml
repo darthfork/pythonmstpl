@@ -7,6 +7,6 @@ deploy:
   helm:
     releases:
     - name: pythonmstpl
-      chartPath: charts
+      chartPath: helm
       artifactOverrides:
         image: pythonmstpl
