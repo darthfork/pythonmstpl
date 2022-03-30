@@ -2,7 +2,10 @@
 
 include src/version.py
 
-IMAGE	:= pythonmstpl
+IMAGE		:= pythonmstpl
+PYTHON		:= /usr/bin/env python3
+SRC		:= src
+PACKAGE		:= pythonmstpl
 
 all: build
 
@@ -17,3 +20,13 @@ lint-dockerfile:
 
 lint-chart:
 	@ct lint --lint-conf conf/lintconf.yaml --chart-yaml-schema conf/chart_schema.yaml
+
+symlink:
+	@ln -sfn $(SRC) $(PACKAGE)
+
+local-dev: symlink
+	$(PYTHON) -m venv .venv && \
+	source .venv/bin/activate && \
+	pip install -r requirements.txt && \
+	pip install -e . &&\
+	uvicorn pythonmstpl.app:app --port 5000 --reload
