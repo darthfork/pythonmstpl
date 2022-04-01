@@ -10,13 +10,11 @@ ARG USERNAME=darthfork
 
 RUN groupadd -r ${USERNAME} && useradd --no-log-init -r -g ${USERNAME} -u 1000 ${USERNAME}
 
-COPY requirements.txt /app
 COPY setup.py /app
 COPY conf/gunicorn.py /app
 COPY src/ /app/pythonmstpl
 
 RUN pip3 install --no-cache-dir --upgrade pip==21.3.1 &&\
-    pip3 install --no-cache-dir -r requirements.txt &&\
     pip3 install --no-cache-dir -e .
 
 USER 1000
