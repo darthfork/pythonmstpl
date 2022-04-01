@@ -13,7 +13,7 @@ ARG USERNAME=darthfork
 
 RUN groupadd -r ${USERNAME} && useradd --no-log-init -r -g ${USERNAME} -u 1000 ${USERNAME}
 
-RUN pip3 install --no-cache-dir --upgrade pip==21.3.1 &&\
+RUN pip3 install --no-cache-dir --upgrade pip==22.0.4 &&\
     pip3 install --no-cache-dir -e .
 
 USER 1000
