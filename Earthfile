@@ -2,7 +2,6 @@ VERSION 0.6
 FROM alpine:3.15
 WORKDIR /app
 ARG USERNAME=darthfork
-ARG --required TAG
 
 deps:
     COPY apk.list /app
@@ -17,6 +16,7 @@ build:
 
 container:
     FROM +build
+    ARG --required TAG
     COPY conf/gunicorn.py /app
     RUN groupadd -r ${USERNAME} && useradd --no-log-init -r -g ${USERNAME} -u 1000 ${USERNAME}
     USER 1000
