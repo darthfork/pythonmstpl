@@ -35,5 +35,8 @@ jobs:
         with:
           version: "latest"
 
+      - name: Build Python Package
+        run: earthly +build
+
       - name: Build Container
         run: earthly --build-arg TAG=$(make get-version) +container
