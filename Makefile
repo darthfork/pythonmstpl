@@ -9,6 +9,9 @@ PACKAGE		:= pythonmstpl
 
 all: build
 
+get-version:
+	@echo $(VERSION)
+
 build:
 	@docker build -t $(IMAGE):$(VERSION) .
 

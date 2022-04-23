@@ -2,8 +2,7 @@ VERSION 0.6
 FROM alpine:3.15
 WORKDIR /app
 ARG USERNAME=darthfork
-# Get this version from src/version.py
-ARG TAG=latest
+ARG --required TAG
 
 deps:
     COPY apk.list /app

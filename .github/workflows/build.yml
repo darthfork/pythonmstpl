@@ -36,4 +36,4 @@ jobs:
           version: "latest"
 
       - name: Build Container
-        run: earthly +container
+        run: earthly --build-arg TAG=$(make get-version) +container
