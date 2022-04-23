@@ -23,3 +23,17 @@ jobs:
 
       - name: Build Image
         run: make build
+  earthly:
+    name: earthly-build
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: earthly/actions-setup@v1
+        with:
+          version: "latest"
+
+      - name: Build Container
+        run: earthly +container
