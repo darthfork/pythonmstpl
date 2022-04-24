@@ -5,13 +5,20 @@ ARG USERNAME=darthfork
 
 deps:
     COPY apk.list /app
+    COPY requirements.txt /app
+    COPY src/ /app/pythonmstpl
     RUN apk add --no-cache $(cat apk.list)
-    RUN pip3 install --no-cache-dir --upgrade pip==22.0.4
+    RUN pip3 install --no-cache-dir --upgrade pip==22.0.4 &&\
+        pip3 install --no-cache-dir -r requirements.txt
+
+test:
+    FROM +deps
+    COPY test/ /app/test/
+    RUN pytest .
 
 build:
     FROM +deps
     COPY setup.py /app
-    COPY src/ /app/pythonmstpl
     RUN pip3 install --no-cache-dir -e .
 
 container:

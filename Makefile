@@ -1,4 +1,4 @@
-.PHONY: build version
+.PHONY: build test
 
 include src/version.py
 
@@ -11,6 +11,12 @@ all: build
 
 get-version:
 	@echo $(VERSION)
+
+test:
+	$(PYTHON) -m venv .venv && \
+	source .venv/bin/activate && \
+	pip install -e . &&\
+	pytest
 
 build:
 	@docker build -t $(IMAGE):$(VERSION) .

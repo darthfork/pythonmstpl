@@ -3,6 +3,7 @@ FROM alpine:3.15
 WORKDIR /app
 
 COPY apk.list /app
+COPY requirements.txt /app
 COPY setup.py /app
 COPY conf/gunicorn.py /app
 COPY src/ /app/pythonmstpl
@@ -14,6 +15,7 @@ ARG USERNAME=darthfork
 RUN groupadd -r ${USERNAME} && useradd --no-log-init -r -g ${USERNAME} -u 1000 ${USERNAME}
 
 RUN pip3 install --no-cache-dir --upgrade pip==22.0.4 &&\
+    pip3 install --no-cache-dir -r requirements.txt &&\
     pip3 install --no-cache-dir -e .
 
 USER 1000
