@@ -5,5 +5,5 @@ setup(
     name='pythonmstpl',
     version=VERSION,
     description='Python micro-service template app',
-    packages=find_packages(),
+    packages=find_packages(exclude=["test"]),
 )
