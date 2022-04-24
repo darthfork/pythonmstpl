@@ -8,7 +8,7 @@ on:
 
 
 jobs:
-  build:
+  docker:
     name: docker-build
     runs-on: ubuntu-20.04
 
@@ -21,8 +21,12 @@ jobs:
         with:
           dockerfile: Dockerfile
 
+      - name: Run tests
+        run: make test
+
       - name: Build Image
         run: make build
+
   earthly:
     name: earthly-build
     runs-on: ubuntu-20.04
@@ -34,6 +38,9 @@ jobs:
       - uses: earthly/actions-setup@v1
         with:
           version: "latest"
+
+      - name: Run tests
+        run: earthly +test
 
       - name: Build Python Package
         run: earthly +build
