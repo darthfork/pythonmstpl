@@ -31,10 +31,10 @@ local-dev: setup-venv symlink
 	uvicorn pythonmstpl.app:app --port 5000 --reload
 
 test:
-	@docker build --target test -t $(IMAGE_TEST):$(VERSION) .
+	@docker build -t $(IMAGE_TEST):$(VERSION) --target test .
 
 build:
-	@docker build --target build -t $(IMAGE):$(VERSION) .
+	@docker build -t $(IMAGE):$(VERSION) --target build .
 
 dev:
 	@docker run -p 5000:5000 -it $(IMAGE):$(VERSION)
