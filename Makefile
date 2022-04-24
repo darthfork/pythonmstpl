@@ -1,8 +1,9 @@
-.PHONY: build test
+.PHONY: build test dev local-test local-dev get-version lint-chart lint-dockerfile
 
 include src/version.py
 
 IMAGE		:= pythonmstpl
+IMAGE_TEST 	:= test_pythonmstpl
 PYTHON		:= /usr/bin/env python3
 SRC		:= src
 PACKAGE		:= pythonmstpl
@@ -12,14 +13,28 @@ all: build
 get-version:
 	@echo $(VERSION)
 
-test:
-	$(PYTHON) -m venv .venv && \
+setup-venv:
+
+symlink:
+	@ln -sfn $(SRC) $(PACKAGE)
+
+local-test: setup-venv
+	$(PYTHON) -m venv .venv &&\
 	source .venv/bin/activate && \
 	pip install -e . &&\
 	pytest
 
+local-dev: setup-venv symlink
+	$(PYTHON) -m venv .venv &&\
+	source .venv/bin/activate && \
+	pip install -e . &&\
+	uvicorn pythonmstpl.app:app --port 5000 --reload
+
+test:
+	@docker build --target test -t $(IMAGE_TEST):$(VERSION) .
+
 build:
-	@docker build -t $(IMAGE):$(VERSION) .
+	@docker build --target build -t $(IMAGE):$(VERSION) .
 
 dev:
 	@docker run -p 5000:5000 -it $(IMAGE):$(VERSION)
@@ -29,12 +44,3 @@ lint-dockerfile:
 
 lint-chart:
 	@ct lint --lint-conf conf/lintconf.yaml --chart-yaml-schema conf/chart_schema.yaml
-
-symlink:
-	@ln -sfn $(SRC) $(PACKAGE)
-
-local-dev: symlink
-	$(PYTHON) -m venv .venv && \
-	source .venv/bin/activate && \
-	pip install -e . &&\
-	uvicorn pythonmstpl.app:app --port 5000 --reload
