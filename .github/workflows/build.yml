@@ -21,9 +21,6 @@ jobs:
         with:
           dockerfile: Dockerfile
 
-      - name: Run tests
-        run: make test
-
       - name: Build Image
         run: make build
 
