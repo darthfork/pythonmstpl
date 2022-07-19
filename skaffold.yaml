@@ -10,3 +10,6 @@ deploy:
       chartPath: helm
       artifactOverrides:
         image: pythonmstpl
+      imageStrategy:
+        helm: {}
+

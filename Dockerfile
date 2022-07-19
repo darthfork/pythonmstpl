@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.16
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ COPY setup.py /app
 COPY conf/gunicorn.py /app
 COPY src/ /app/pythonmstpl
 
-RUN pip3 install --no-cache-dir --upgrade pip==22.0.4 &&\
+RUN pip3 install --no-cache-dir --upgrade pip==22.1.2 &&\
     pip3 install --no-cache-dir -r requirements.txt &&\
     pip3 install --no-cache-dir -e .
 
