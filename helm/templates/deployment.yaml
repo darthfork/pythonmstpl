@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}
-        image: {{ .Values.image }}
+        image: {{ .Values.image.repo }}:{{ .Values.image.tag }}
         ports:
         - containerPort: 5000
         livenessProbe:

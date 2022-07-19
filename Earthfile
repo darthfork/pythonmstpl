@@ -1,5 +1,5 @@
 VERSION 0.6
-FROM alpine:3.15
+FROM alpine:3.16
 WORKDIR /app
 ARG USERNAME=darthfork
 
@@ -8,7 +8,7 @@ deps:
     COPY requirements.txt /app
     COPY src/ /app/pythonmstpl
     RUN apk add --no-cache $(cat apk.list)
-    RUN pip3 install --no-cache-dir --upgrade pip==22.0.4 &&\
+    RUN pip3 install --no-cache-dir --upgrade pip==22.1.2 &&\
         pip3 install --no-cache-dir -r requirements.txt
 
 test:
