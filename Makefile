@@ -3,10 +3,12 @@
 include src/version.py
 
 IMAGE		:= pythonmstpl
-IMAGE_TEST	:= test_pythonmstpl
 PYTHON		:= /usr/bin/env python3
 SRC		:= src
 PACKAGE		:= pythonmstpl
+PYENV		:= ${CURDIR}/.venv
+PYBIN		:= $(PYENV)/bin
+PYTEST		:= $(PYBIN)/pytest
 
 all: build
 
@@ -14,23 +16,21 @@ get-version:
 	@echo $(VERSION)
 
 setup-venv:
+	@if [ ! -d "${CURDIR}/.venv" ]; then \
+		$(PYTHON) -m venv $(PYENV); \
+	fi
+	@(  source ${CURDIR}/.venv/bin/activate; \
+	   pip install -r requirements.txt; \
+	   pip install -e . )
 
 symlink:
 	@ln -sfn $(SRC) $(PACKAGE)
 
-local-test: symlink
-	$(PYTHON) -m venv .venv &&\
-	source .venv/bin/activate && \
-	pip install -r requirements.txt &&\
-	pip install -e . &&\
-	pytest
+local-test: symlink setup-venv
+	$(PYTEST)
 
-local-dev: symlink
-	$(PYTHON) -m venv .venv &&\
-	source .venv/bin/activate && \
-	pip install -r requirements.txt &&\
-	pip install -e . &&\
-	uvicorn pythonmstpl.app:app --port 5000 --reload
+local-dev: symlink setup-venv
+	$(PYBIN)/uvicorn pythonmstpl.app:app --port 5000 --reload
 
 build:
 	@docker build -t $(IMAGE):$(VERSION) .
