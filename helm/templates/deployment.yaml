@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}
+  name: {{ .Values.name }}
   labels:
-    app: {{ .Chart.Name }}
+    app: {{ .Values.name }}
 spec:
   replicas: {{ .Values.resources.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}
+      app: {{ .Values.name }}
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
+        app: {{ .Values.name }}
     spec:
       containers:
-      - name: {{ .Chart.Name }}
+      - name: {{ .Values.name }}
         image: {{ .Values.image.repo }}:{{ .Values.image.tag }}
         ports:
         - containerPort: 5000
@@ -34,4 +34,4 @@ spec:
             cpu: {{ .Values.resources.resourcesLimits.cpu }}
         envFrom:
         - configMapRef:
-            name: {{ .Chart.Name }}-config
+            name: {{ .Values.name }}-config
