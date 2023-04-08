@@ -10,7 +10,6 @@ resources:
   resourcesRequests:
     memory: 512Mi
     cpu: 1
-
 configMap:
   data:
     ENVIRONMENT: "dev"
