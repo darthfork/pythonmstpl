@@ -4,4 +4,4 @@ shadow=4.10-r3
 pcre-dev=8.45-r2
 build-base=0.5-r3
 linux-headers=5.16.7-r1
-curl=7.83.1-r6
+curl=8.0.1-r0
