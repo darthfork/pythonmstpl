@@ -2,14 +2,13 @@ apiVersion: skaffold/v2beta17
 kind: Config
 build:
   artifacts:
-  - image: pythonmstpl
+    - image: pythonmstpl
 deploy:
   helm:
     releases:
-    - name: pythonmstpl
-      chartPath: helm
-      artifactOverrides:
-        image: pythonmstpl
-      imageStrategy:
-        helm: {}
-
+      - name: pythonmstpl
+        chartPath: helm
+        artifactOverrides:
+          image: pythonmstpl
+        imageStrategy:
+          helm: {}

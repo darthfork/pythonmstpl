@@ -5,4 +5,4 @@ metadata:
   labels:
     app: {{ .Values.name }}
 data:
-{{ .Values.configMap.data | toYaml | indent 2 }}
+    ENVIRONMENT: {{ .Values.config.environment }}
