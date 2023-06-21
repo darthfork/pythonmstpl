@@ -17,7 +17,8 @@ all: build
 get-version:
 	@echo $(VERSION)
 
-setup-venv: symlink
+setup-local-environment:
+	@ln -sfn $(SRC) $(PACKAGE)
 	@if [ ! -d "${CURDIR}/.venv" ]; then \
 		$(PYTHON) -m venv $(PYENV); \
 	fi
@@ -25,14 +26,11 @@ setup-venv: symlink
 	   pip install -r requirements.txt; \
 	   pip install -e . )
 
-symlink:
-	@ln -sfn $(SRC) $(PACKAGE)
-
-test: setup-venv
+test: setup-local-environment
 	$(PIP) install pytest
 	$(PYTEST)
 
-local-dev: setup-venv
+local-dev: setup-local-environment
 	$(PYBIN)/uvicorn pythonmstpl.app:app --port 5000 --reload
 
 build:
@@ -43,7 +41,7 @@ dev:
 
 lint: lint-dockerfile lint-chart lint-python
 
-lint-python: setup-venv
+lint-python: setup-local-environment
 	$(PIP) install pylint
 	$(PYLINT) src --rcfile conf/pylint.conf
 
