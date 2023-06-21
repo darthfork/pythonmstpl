@@ -19,24 +19,18 @@ setup-venv:
 	@if [ ! -d "${CURDIR}/.venv" ]; then \
 		$(PYTHON) -m venv $(PYENV); \
 	fi
-	@(  source ${CURDIR}/.venv/bin/activate; \
+	@( . ${CURDIR}/.venv/bin/activate; \
 	   pip install -r requirements.txt; \
 	   pip install -e . )
 
 symlink:
 	@ln -sfn $(SRC) $(PACKAGE)
 
-local-test: symlink setup-venv
+test: symlink setup-venv
 	$(PYTEST)
 
 local-dev: symlink setup-venv
 	$(PYBIN)/uvicorn pythonmstpl.app:app --port 5000 --reload
-
-test: symlink
-	pip install -r requirements.txt
-	pip install -e .
-	pytest
-
 
 build:
 	@docker build -t $(IMAGE):$(VERSION) .
