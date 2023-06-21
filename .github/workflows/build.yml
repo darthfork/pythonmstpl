@@ -11,7 +11,7 @@ on:
 
 jobs:
   docker:
-    name: docker-build
+    name: Test and Build
     runs-on: ubuntu-20.04
 
     steps:

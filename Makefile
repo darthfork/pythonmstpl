@@ -17,7 +17,7 @@ all: build
 get-version:
 	@echo $(VERSION)
 
-setup-venv:
+setup-venv: symlink
 	@if [ ! -d "${CURDIR}/.venv" ]; then \
 		$(PYTHON) -m venv $(PYENV); \
 	fi
@@ -28,11 +28,11 @@ setup-venv:
 symlink:
 	@ln -sfn $(SRC) $(PACKAGE)
 
-test: symlink setup-venv
+test: setup-venv
 	$(PIP) install pytest
 	$(PYTEST)
 
-local-dev: symlink setup-venv
+local-dev: setup-venv
 	$(PYBIN)/uvicorn pythonmstpl.app:app --port 5000 --reload
 
 build:
