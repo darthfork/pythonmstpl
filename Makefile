@@ -8,7 +8,9 @@ SRC		:= src
 PACKAGE		:= pythonmstpl
 PYENV		:= ${CURDIR}/.venv
 PYBIN		:= $(PYENV)/bin
+PIP		:= $(PYBIN)/pip
 PYTEST		:= $(PYBIN)/pytest
+PYLINT		:= $(PYBIN)/pylint
 
 all: build
 
@@ -27,6 +29,7 @@ symlink:
 	@ln -sfn $(SRC) $(PACKAGE)
 
 test: symlink setup-venv
+	$(PIP) install pytest
 	$(PYTEST)
 
 local-dev: symlink setup-venv
@@ -38,8 +41,17 @@ build:
 dev:
 	@docker run -p 5000:5000 -it $(IMAGE):$(VERSION)
 
+lint: lint-dockerfile lint-chart lint-python
+
+lint-python: setup-venv
+	$(PIP) install pylint
+	$(PYLINT) src --rcfile conf/pylint.conf
+
 lint-dockerfile:
 	@hadolint Dockerfile
 
 lint-chart:
-	@ct lint --lint-conf conf/lintconf.yaml --chart-yaml-schema conf/chart_schema.yaml
+	@ct lint\
+		--charts helm\
+		--lint-conf conf/lintconf.yaml\
+		--chart-yaml-schema conf/chart_schema.yaml

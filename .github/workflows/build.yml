@@ -18,18 +18,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.4.0
+
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
           python-version: "3.x"
 
-      - name: Run tests with pytest
-        run: make test
-
       - name: Hadolint
         uses: hadolint/hadolint-action@v1.5.0
         with:
           dockerfile: Dockerfile
+
+      - name: Lint Python code
+        run: make lint-python
+
+      - name: Lint Chart
+        run: make lint-chart
+
+      - name: Run tests with pytest
+        run: make test
 
       - name: Build Image
         run: make build
