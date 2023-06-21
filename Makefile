@@ -32,6 +32,12 @@ local-test: symlink setup-venv
 local-dev: symlink setup-venv
 	$(PYBIN)/uvicorn pythonmstpl.app:app --port 5000 --reload
 
+test: symlink
+	pip install -r requirements.txt
+	pip install -e .
+	pytest
+
+
 build:
 	@docker build -t $(IMAGE):$(VERSION) .
 

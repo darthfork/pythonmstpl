@@ -24,7 +24,7 @@ jobs:
           python-version: "3.x"
 
       - name: Run tests with pytest
-        run: make local-test
+        run: make test
 
       - name: Hadolint
         uses: hadolint/hadolint-action@v1.5.0
