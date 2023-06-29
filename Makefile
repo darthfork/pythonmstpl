@@ -8,14 +8,17 @@ SRC		:= src
 PACKAGE		:= pythonmstpl
 PYENV		:= ${CURDIR}/.venv
 PYBIN		:= $(PYENV)/bin
+PIP		:= $(PYBIN)/pip
 PYTEST		:= $(PYBIN)/pytest
+PYLINT		:= $(PYBIN)/pylint
 
 all: build
 
 get-version:
 	@echo $(VERSION)
 
-setup-venv:
+setup-local-environment:
+	@ln -sfn $(SRC) $(PACKAGE)
 	@if [ ! -d "${CURDIR}/.venv" ]; then \
 		$(PYTHON) -m venv $(PYENV); \
 	fi
@@ -23,13 +26,11 @@ setup-venv:
 	   pip install -r requirements.txt; \
 	   pip install -e . )
 
-symlink:
-	@ln -sfn $(SRC) $(PACKAGE)
-
-test: symlink setup-venv
+test: setup-local-environment
+	$(PIP) install pytest
 	$(PYTEST)
 
-local-dev: symlink setup-venv
+local-dev: setup-local-environment
 	$(PYBIN)/uvicorn pythonmstpl.app:app --port 5000 --reload
 
 build:
@@ -38,8 +39,17 @@ build:
 dev:
 	@docker run -p 5000:5000 -it $(IMAGE):$(VERSION)
 
+lint: lint-dockerfile lint-chart lint-python
+
+lint-python: setup-local-environment
+	$(PIP) install pylint
+	$(PYLINT) src --rcfile conf/pylint.conf
+
 lint-dockerfile:
 	@hadolint Dockerfile
 
 lint-chart:
-	@ct lint --lint-conf conf/lintconf.yaml --chart-yaml-schema conf/chart_schema.yaml
+	@ct lint\
+		--charts helm\
+		--lint-conf conf/lintconf.yaml\
+		--chart-yaml-schema conf/chart_schema.yaml
