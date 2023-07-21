@@ -1,4 +1,4 @@
-.PHONY: build test dev local-test local-dev get-version lint-chart lint-dockerfile
+.PHONY: help build test dev local-test local-dev get-version lint-chart lint-dockerfile
 
 include src/version.py
 
@@ -12,7 +12,8 @@ PIP		:= $(PYBIN)/pip
 PYTEST		:= $(PYBIN)/pytest
 PYLINT		:= $(PYBIN)/pylint
 
-all: build
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":"}; {printf "\033[36m%-15s\033[0m %s\n", $$2, $$3}' | sed 's/## //g'
 
 get-version:
 	@echo $(VERSION)
@@ -26,19 +27,22 @@ setup-local-environment:
 	   pip install -r requirements.txt; \
 	   pip install -e . )
 
+test: ## Run tests
 test: setup-local-environment
 	$(PIP) install pytest
 	$(PYTEST)
 
+local-dev: ## Run local development server
 local-dev: setup-local-environment
 	$(PYBIN)/uvicorn pythonmstpl.app:app --port 5000 --reload
 
-build:
+build: ## Build docker image
 	@docker build -t $(IMAGE):$(VERSION) .
 
-dev:
+dev: ## Run locally built docker image
 	@docker run -p 5000:5000 -it $(IMAGE):$(VERSION)
 
+lint: ## Lint python source, Dockerfile, and Helm charts
 lint: lint-dockerfile lint-chart lint-python
 
 lint-python: setup-local-environment
