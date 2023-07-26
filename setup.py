@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from pythonmstpl.version import VERSION
 
-with open('requirements.txt') as f:
+with open('requirements.txt', 'r', encoding="utf-8") as f:
     install_requires = f.read().splitlines()
 
 setup(
